@@ -22,17 +22,23 @@ message = "type the number or a letter to chose your character!"
 rule = "1:Pikachu 2:Charzard 3:Gengar 4:Mewtwo"
 rule_2 = "A:Pikachu B:Charzard C:Gengar D:Mewtwo"
 ready = "Press SPACE when ready!"
+player_1_message = "Player 1, it is your turn! Press 1,2,3,4 to attack! Press ESC to see the description of each attack."
+player_2_message = "Player 2, it is your turn! Press A,B,C,D to attack! Press ESC to see the description of each attack."
+player_1_pick = ""
+player_2_pick = ""
+
 
 r = 50
 g = 0
 b = 100
 
-display_start_message = my_font.render(start_message, True, (255, 255, 255))
-display_message = my_font.render(message, True, (255, 255, 255))
-display_rule = my_font.render(rule, True, (255, 255, 255))
-display_rule2 = my_font.render(rule_2, True, (255, 255, 255))
-ready_display = my_font.render(ready, True, (255, 255, 255))
-
+display_start_message = my_font.render(start_message, True, (0, 0, 0))
+display_message = my_font.render(message, True, (0, 0, 0))
+display_rule = my_font.render(rule, True, (0, 0, 0))
+display_rule2 = my_font.render(rule_2, True, (0, 0, 0))
+ready_display = my_font.render(ready, True, (0, 0, 0))
+display_attackmessage_1 = my_font.render(player_1_message, True, (0,0,0))
+display_attackmessage_2 = my_font.render(player_2_message, True, (0,0,0))
 
 p = Pikachu (800,60)
 c = Charzard (800,600)
@@ -42,7 +48,7 @@ p2 = Pikachu (800,60)
 c2 = Charzard (800,60)
 m = Mewtwo (100,200)
 m2 = Mewtwo (100,200)
-
+bg = pygame.image.load("d4o49yb-f6ce0e46-18c7-4b95-8604-dfc301eb506b.png")
 
 player_1_character = 0
 player_2_character = 0
@@ -74,6 +80,9 @@ while run:
         character_selection = False
         battle_ready_mode = True
 
+    # if player_1_character == 1:
+    #     player_1_pick = ""
+
     if battle_ready_mode is True:
         for event in pygame.event.get():
             if event.type == pygame.KEYUP:
@@ -85,49 +94,64 @@ while run:
 
 
     for event in pygame.event.get():
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_1:
-                player_1_character = 1
-                player_1_pikachu = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_2:
-                player_1_character = 2
-                player_1_charzard = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_3:
-                player_1_character = 3
-                player_1_gengar = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_4:
-                player_1_character = 4
-                player_1_mewtwo = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
-                player_2_character = 1
-                player_2_pikachu = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_b:
-                player_2_character = 2
-                player_2_charzard = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_c:
-                player_2_character = 3
-                player_2_gengar = True
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_d:
-                player_2_character = 4
-                player_2_mewtwo = True
 
         if event.type == pygame.QUIT:  # If user clicked close
             run = False
 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_1:
+                if character_selection is True:
+                    player_1_character = 1
+                    player_1_pikachu = True
+                    print("yay")
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_2:
+                if character_selection is True:
+                    player_1_character = 2
+                    player_1_charzard = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_3:
+                if character_selection is True:
+                    player_1_character = 3
+                    player_1_gengar = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_4:
+                if character_selection is True:
+                    player_1_character = 4
+                    player_1_mewtwo = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_a:
+                if character_selection is True:
+                    player_2_character = 1
+                    player_2_pikachu = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_b:
+                if character_selection is True:
+                    player_2_character = 2
+                    player_2_charzard = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_c:
+                if character_selection is True:
+                    player_2_character = 3
+                    player_2_gengar = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_d:
+                if character_selection is True:
+                    player_2_character = 4
+                    player_2_mewtwo = True
+
+
+
+
     if character_selection is True:
-        screen.fill((r, g, b))
+        screen.blit(bg , (0,0))
         screen.blit(display_start_message, (0, 0))
         screen.blit(display_message, (0, 15))
         screen.blit(display_rule, (0,30))
@@ -138,7 +162,7 @@ while run:
         screen.blit(m.image, m.rect)
 
     if character_selection is False:
-        screen.fill((r, g, b))
+        screen.blit(bg, (0,0))
         if player_1_charzard is True:
             c = Charzard(100, 600)
             screen.blit(c.image, c.rect)
@@ -158,10 +182,46 @@ while run:
 
     if game_phase is True:
         #enable battle background
-        screen.fill((r,g,b))
+        screen.blit(bg, (0,0))
+        if player_1_charzard is True:
+            c = Charzard(100, 600)
+            screen.blit(c.image, c.rect)
+        if player_1_pikachu is True:
+            screen.blit(p.image, p.rect)
+            p = Pikachu(100, 500)
+        if player_1_gengar is True:
+            ge = Gengar(100, 500)
+            screen.blit(ge.image, ge.rect)
+        if player_1_mewtwo is True:
+            screen.blit(m.image, m.rect)
+        if player_2_charzard is True:
+            screen.blit(c2.image, c2.rect)
+        if player_2_pikachu is True:
+            screen.blit(p2.image, p2.rect)
+        if player_2_gengar is True:
+            screen.blit(g2.image, g2.rect)
+        if player_2_mewtwo is True:
+            screen.blit(m2.image, m2.rect)
+        player_1_turn = True
+        if player_1_turn is True:
+            pregame_player1 = True
 
-    #if pregame_player1 is True:
-        #
+        # player_2_turn = True
+        # if player_2_turn is True:
+        #     pregame_player2 = True
+
+    if pregame_player1 is True:
+
+        screen.blit(display_attackmessage_1, (300,300))
+
+
+    if pregame_player2 is True:
+
+        screen.blit(display_attackmessage_2, (300, 300))
+
+
+
+
 
     pygame.display.update()
 
