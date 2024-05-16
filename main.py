@@ -1,10 +1,14 @@
 import pygame
 from pikachu import Pikachu
-# from charzard import Charzard
+from charzard import Charzard
 from gengar import Gengar
-# from mewtwo import Mewtwo
+from mewtwo import Mewtwo
 import random
 
+# def draw_health_bar(health,x,y):
+#     font = pygame.font.SysFont('arial', 25)
+#     text = font.render(f'(health) HP: (health)', True, (0, 0, 0))
+#     screen.blit(text, (x, y))
 
 pygame.init()
 pygame.font.init()
@@ -84,12 +88,9 @@ middle_phase = False
 game_phase = False
 help_phase_character = False
 run = True
+damage = 0
 
-attack_type_low_risk = 0
-attack_type_normal = 0
-attack_type_medium = 0
-attack_type_risky = 0
-attack_type_super_risky = 0
+
 
 while run:
 
@@ -212,30 +213,30 @@ while run:
         if player_1_charzard is True:
             c = Charzard(100, 600)
             screen.blit(c.image, c.rect)
-            player_1_health = 200
+            player_1_health = c.hp
         if player_1_pikachu is True:
             screen.blit(p.image, p.rect)
             p = Pikachu(100, 500)
-            player_1_health = 100
+            player_1_health = p.hp
         if player_1_gengar is True:
             ge = Gengar(100, 500)
-            player_1_health = 80
+            player_1_health = ge.hp
             screen.blit(ge.image, ge.rect)
         if player_1_mewtwo is True:
             screen.blit(m.image, m.rect)
-            player_1_health = 150
+            player_1_health = m.hp
         if player_2_charzard is True:
             screen.blit(c2.image, c2.rect)
-            player_2_health = 200
+            player_2_health = c2.hp
         if player_2_pikachu is True:
             screen.blit(p2.image, p2.rect)
-            player_2_health = 100
+            player_2_health = p2.hp
         if player_2_gengar is True:
             screen.blit(g2.image, g2.rect)
-            player_2_health = 80
+            player_2_health = g2.hp
         if player_2_mewtwo is True:
             screen.blit(m2.image, m2.rect)
-            player_2_health = 150
+            player_2_health = m2.hp
         player_1_turn = True
         if player_1_turn is True:
             pregame_player1 = True
@@ -249,13 +250,44 @@ while run:
         screen.blit(display_attackmessage_1, (100,450))
         display_player_1_health = my_font.render(str(player_1_health), True, (0, 0, 0))
         screen.blit(display_player_1_health, (5,800))
-
-    if pregame_player2 is True:
-
         screen.blit(display_attackmessage_2, (100, 450))
         display_player_2_health = my_font.render(str(player_2_health), True, (0, 0, 0))
         screen.blit(display_player_2_health, (300, 300))
+        print(str(player_2_health))
 
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_1:
+                if player_1_character == 1:
+                    damage = p.attack("Thunderbolt")
+                    print (str(damage))
+
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_2:
+                    player_1_character = 2
+                    player_1_charzard = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_3:
+                if character_selection is True:
+                    player_1_character = 3
+                    player_1_gengar = True
+
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_4:
+                if character_selection is True:
+                    player_1_character = 4
+                    player_1_mewtwo = True
+
+    if pregame_player2 is True:
+
+        screen.blit(display_attackmessage_1, (100, 450))
+        display_player_1_health = my_font.render(str(player_1_health), True, (0, 0, 0))
+        screen.blit(display_player_1_health, (5, 800))
+        screen.blit(display_attackmessage_2, (100, 450))
+        display_player_2_health = my_font.render(str(player_2_health), True, (0, 0, 0))
+        screen.blit(display_player_2_health, (300, 300))
+        print(str(player_2_health))
 
 
     pygame.display.update()

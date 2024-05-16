@@ -10,7 +10,7 @@ class Pikachu:
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = .1
         self.name = "Pikachu"
-        self.hp = 55
+        self.hp = 65
         self.moves = {
             "Thunderbolt": {"damage": 25, "accuracy": 80},
             "Quick Attack": {"damage": 15, "accuracy": 95},
@@ -30,3 +30,9 @@ class Pikachu:
             else:
                 return 0
                 # invalid
+
+        def take_damage(self, damage):
+            self.hp -= damage
+            if self.hp < 0:
+                self.hp = 0
+            return str(self.hp)

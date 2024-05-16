@@ -31,9 +31,8 @@ class Gengar:
             return 0
             # invalid
 
-
     def take_damage(self, damage):
         self.hp -= damage
         if self.hp < 0:
             self.hp = 0
-        print(f"{self.name} took {damage} damage and has {self.hp} HP left.")
+        return str(self.hp)
