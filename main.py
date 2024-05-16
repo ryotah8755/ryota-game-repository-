@@ -1,8 +1,8 @@
 import pygame
 from pikachu import Pikachu
-from charzard import Charzard
+# from charzard import Charzard
 from gengar import Gengar
-from mewtwo import Mewtwo
+# from mewtwo import Mewtwo
 import random
 
 
