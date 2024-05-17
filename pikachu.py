@@ -18,21 +18,21 @@ class Pikachu:
             "Electro Ball": {"damage": 20, "accuracy": 85}
         }
 
-        def attack(self, move):
-            if move in self.moves:
-                move_info = self.moves[move]
-                if random.randint(1, 100) <= move_info["accuracy"]:
-                    # attack hit
-                    return move_info["damage"]
-                else:
-                    # missed
-                    return 0
+    def attack(self, move):
+        if move in self.moves:
+            move_info = self.moves[move]
+            if random.randint(1, 100) <= move_info["accuracy"]:
+                # attack hit
+                return move_info["damage"]
             else:
+                # missed
                 return 0
-                # invalid
+        else:
+            return 0
+            # invalid
 
-        def take_damage(self, damage):
-            self.hp -= damage
-            if self.hp < 0:
-                self.hp = 0
-            return str(self.hp)
+    def take_damage(self, damage):
+        self.hp -= damage
+        if self.hp < 0:
+            self.hp = 0
+        return self.hp

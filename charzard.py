@@ -16,7 +16,7 @@ class Charzard:
         self.moves = {
             "Dragon Claw": {"damage": 15, "accuracy": 70},
             "Slash": {"damage": 20, "accuracy": 65},
-            "Infero": {"damage": 30, "accuracy": 50},
+            "Inferno": {"damage": 30, "accuracy": 50},
             "Overheat": {"damage": 40, "accuracy": 35}
         }
 
