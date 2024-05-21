@@ -28,6 +28,7 @@ message = "type the number or a letter to chose your character!"
 rule = "1:Pikachu 2:Charzard 3:Gengar 4:Mewtwo"
 rule_2 = "7:Pikachu 8:Charzard 9:Gengar 0:Mewtwo"
 ready = "Press SPACE when ready!"
+pregame_prompt = "PRESS SPACE TO GET READY FOR ATTACK PHASE!"
 help_message = "press ESC to see what each characters are!"
 help_character = ""
 player_1_message = "Player 1, it is your turn! Press 1,2,3,4 to attack! Press ESC to see the description of each attack."
@@ -53,6 +54,7 @@ display_attackmessage_1 = my_font.render(player_1_message, True, (0,0,0))
 display_attackmessage_2 = my_font.render(player_2_message, True, (0,0,0))
 display_player_1_health = my_font.render(str(player_1_health), True, (0,0,0))
 display_player_2_health = my_font.render(str(player_2_health), True, (0,0,0))
+show_pregame_prompt = my_font.render(str(pregame_prompt), True, (0, 0, 0))
 
 p = Pikachu (800,60)
 c = Charzard (750,560)
@@ -86,8 +88,16 @@ pregame_player1 = False
 pregame_player2 = False
 middle_phase = False
 game_phase = False
+damage_phase_1 = False
+damage_phase_2 = False
 help_phase_character = False
+pregame_prompt_1 = False
+pregame_prompt_2 = False
 
+start_turn_1 = False
+start_turn_2 = False
+
+damage_reset_done = False
 
 player_1_attack_done = False
 player_2_attack_done = False
@@ -255,6 +265,134 @@ while run:
         #     pregame_player2 = True
 
     if pregame_player1 is True:
+        screen.blit(show_pregame_prompt, (400,400))
+        if battle_ready_mode is True:
+            for event in pygame.event.get():
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_SPACE:
+                        start_turn_1 = True
+        if start_turn_1 is True:
+            if damage_reset_done is False:
+                damage = 0
+                print("damage has been reset")
+                damage_reset_done = True
+            screen.blit(display_attackmessage_1, (100,450))
+            display_player_1_health = my_font.render(str(player_1_health), True, (0, 0, 0))
+            screen.blit(display_player_1_health, (5,800))
+            screen.blit(display_attackmessage_2, (100, 450))
+            display_player_2_health = my_font.render(str(player_2_health), True, (0, 0, 0))
+            screen.blit(display_player_2_health, (300, 300))
+            # print(str(player_2_health))
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_1:
+                    if player_1_attack_done is False:
+                        if player_1_character == 1:
+                            damage = p.attack("Thunderbolt")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 2:
+                            damage = c.attack("Dragon Claw")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 3:
+                            damage = ge.attack("Shadow Ball")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 4:
+                            damage = m.attack("Psycho Cut")
+                            print(str(damage))
+                            player_1_attack_done = True
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_2:
+                    if player_1_attack_done is False:
+                        if player_1_character == 1:
+                            damage = p.attack("Quick Attack")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 2:
+                            damage = c.attack("Slash")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 3:
+                            damage = ge.attack("Night Shade")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 4:
+                            damage = m.attack("Confusion")
+                            print(str(damage))
+                            player_1_attack_done = True
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_3:
+                    if player_1_attack_done is False:
+                        if player_1_character == 1:
+                            damage = p.attack("Iron Tail")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 2:
+                            damage = c.attack("Inferno")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 3:
+                            damage = ge.attack("Dream Eater")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 4:
+                            damage = m.attack("Focus Blast")
+                            print(str(damage))
+                            player_1_attack_done = True
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_4:
+                    if player_1_attack_done is False:
+                        if player_1_character == 1:
+                            damage = p.attack("Electro Ball")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 2:
+                            damage = c.attack("Overheat")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 3:
+                            damage = ge.attack("Dark Pulse")
+                            print(str(damage))
+                            player_1_attack_done = True
+                        if player_1_character == 4:
+                            damage = m.attack("Psystrike")
+                            print(str(damage))
+                            player_1_attack_done = True
+
+            if player_1_attack_done is True:
+                if damage_phase_1 is False:
+                    if player_2_character == 1:
+
+                        p2.hp = p2.take_damage(damage)
+                        print(str("player 2 health remain" + str(p2.hp)))
+                        pregame_player1 = False
+                        print(str("player 1 dealt " + str(damage)))
+                        damage_phase_1 = True
+                        pregame_player2 = True
+                        print("player 2 turn ")
+                        start_turn_1 = False
+            # elif player_2_character == 2:
+            # elif player_2_character == 3:
+            # elif player_2_character == 4:
+            #
+            # pregame_player2 = True
+          if pregame_player2 is True:
+            screen.blit(show_pregame_prompt, (400, 400))
+            if battle_ready_mode is True:
+                for event in pygame.event.get():
+                    if event.type == pygame.KEYUP:
+                        if event.key == pygame.K_SPACE:
+                            start_turn_2 = True
+            if start_turn_2 is True:
+                if damage_reset_done is False:
+                    damage = 0
+                    print("damage has been reset")
+                    damage_reset_done = True
 
         screen.blit(display_attackmessage_1, (100,450))
         display_player_1_health = my_font.render(str(player_1_health), True, (0, 0, 0))
@@ -262,100 +400,7 @@ while run:
         screen.blit(display_attackmessage_2, (100, 450))
         display_player_2_health = my_font.render(str(player_2_health), True, (0, 0, 0))
         screen.blit(display_player_2_health, (300, 300))
-        # print(str(player_2_health))
 
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_1:
-                if player_1_attack_done is False:
-                    if player_1_character == 1:
-                        damage = p.attack("Thunderbolt")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 2:
-                        damage = c.attack("Dragon Claw")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 3:
-                        damage = ge.attack("Shadow Ball")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 4:
-                        damage = m.attack("Psycho Cut")
-                        print(str(damage))
-                        player_1_attack_done = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_2:
-                if player_1_attack_done is False:
-                    if player_1_character == 1:
-                        damage = p.attack("Quick Attack")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 2:
-                        damage = c.attack("Slash")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 3:
-                        damage = ge.attack("Night Shade")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 4:
-                        damage = m.attack("Confusion")
-                        print(str(damage))
-                        player_1_attack_done = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_3:
-                if player_1_attack_done is False:
-                    if player_1_character == 1:
-                        damage = p.attack("Iron Tail")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 2:
-                        damage = c.attack("Inferno")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 3:
-                        damage = ge.attack("Dream Eater")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 4:
-                        damage = m.attack("Focus Blast")
-                        print(str(damage))
-                        player_1_attack_done = True
-
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_4:
-                if player_1_attack_done is False:
-                    if player_1_character == 1:
-                        damage = p.attack("Electro Ball")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 2:
-                        damage = c.attack("Overheat")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 3:
-                        damage = ge.attack("Dark Pulse")
-                        print(str(damage))
-                        player_1_attack_done = True
-                    if player_1_character == 4:
-                        damage = m.attack("Psystrike")
-                        print(str(damage))
-                        player_1_attack_done = True
-
-        if player_1_attack_done is True:
-            if player_2_character == 1:
-                p2.hp = p2.take_damage(damage)
-                print(str(p2.hp))
-                player_1_attack_done = False
-            # elif player_2_character == 2:
-            # elif player_2_character == 3:
-            # elif player_2_character == 4:
-            #
-            # pregame_player2 = True
-
-    if pregame_player2 is True:
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_1:
                 if player_2_attack_done is False:
@@ -435,6 +480,20 @@ while run:
                         damage = m.attack("Psystrike")
                         print(str(damage))
                         player_2_attack_done = True
+
+        if player_2_attack_done is True:
+            if damage_phase_2 is False:
+                if player_1_character == 1:
+
+                    p.hp = p.take_damage(damage)
+                    print(str("player 1 has remaing " + str(p.hp)))
+                    pregame_player2 = False
+                    print(str("player 2 has dealt " + str(damage)))
+                    damage_phase_2 = True
+                    pregame_player_1 = True
+                    print("player 1 turn starts")
+                    start_turn_2 = False
+
 
 
         screen.blit(display_attackmessage_1, (100, 450))
@@ -443,7 +502,7 @@ while run:
         screen.blit(display_attackmessage_2, (100, 450))
         display_player_2_health = my_font.render(str(player_2_health), True, (0, 0, 0))
         screen.blit(display_player_2_health, (300, 300))
-        print(str(player_2_health))
+
 
 
     pygame.display.update()
