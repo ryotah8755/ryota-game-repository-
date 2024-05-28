@@ -15,7 +15,7 @@ class Mewtwo:
             self.moves = {
                 "Psycho Cut": {"damage": 10, "accuracy": 100},
                 "Confusion": {"damage": 20, "accuracy": 85},
-                "Focus Blast": {"damage": 40, "accuracy": 55},
+                "Focus Blast": {"damage": 30, "accuracy": 55},
                 "Psystrike": {"damage": 45, "accuracy": 35}
             }
 

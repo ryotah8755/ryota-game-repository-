@@ -14,7 +14,7 @@ class Charzard:
         self.name = "Pikachu"
         self.hp = 100
         self.moves = {
-            "Dragon Claw": {"damage": 15, "accuracy": 70},
+            "Dragon Claw": {"damage": 15, "accuracy": 100},
             "Slash": {"damage": 20, "accuracy": 65},
             "Inferno": {"damage": 30, "accuracy": 50},
             "Overheat": {"damage": 40, "accuracy": 35}

@@ -10,7 +10,7 @@ class Pikachu:
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = .1
         self.name = "Pikachu"
-        self.hp = 65
+        self.hp = 85
         self.moves = {
             "Thunderbolt": {"damage": 25, "accuracy": 80},
             "Quick Attack": {"damage": 15, "accuracy": 95},

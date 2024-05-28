@@ -376,18 +376,16 @@ while run:
                         pregame_player2 = True
                         print("player 2 turn ")
                         start_turn_1 = False
-            # elif player_2_character == 2:
-            # elif player_2_character == 3:
-            # elif player_2_character == 4:
-            #
-            # pregame_player2 = True
-          if pregame_player2 is True:
-            screen.blit(show_pregame_prompt, (400, 400))
-            if battle_ready_mode is True:
-                for event in pygame.event.get():
-                    if event.type == pygame.KEYUP:
-                        if event.key == pygame.K_SPACE:
-                            start_turn_2 = True
+
+
+
+    if pregame_player2 is True:
+        screen.blit(show_pregame_prompt, (400, 400))
+    if battle_ready_mode is True:
+        for event in pygame.event.get():
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_SPACE:
+                    start_turn_2 = True
             if start_turn_2 is True:
                 if damage_reset_done is False:
                     damage = 0
