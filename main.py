@@ -14,7 +14,8 @@ pygame.init()
 pygame.font.init()
 # my_font = pygame.font.SysFont('Arial', 20)
 my_font = pygame.font.Font("fonts/PixeloidMono-d94EV.ttf", 16)
-
+pygame.mixer.init()
+pygame.mixer.music.load("Pokémon Red, Blue and Yellow - Battle! Trainer Red Music [4bit].mp3")
 pygame.display.set_caption("Coin Collector!")
 
 # set up variables for the display
@@ -65,6 +66,7 @@ c2 = Charzard (800,60)
 m = Mewtwo (100,60)
 m2 = Mewtwo (800,60)
 bg = pygame.image.load("d4o49yb-f6ce0e46-18c7-4b95-8604-dfc301eb506b.png")
+character_selection_bg = pygame.image.load("wallhaven-g8jj5q.png")
 
 player_1_character = 0
 player_2_character = 0
@@ -109,9 +111,16 @@ player_2_win = False
 run = True
 damage = 0
 
-
+a = False
 
 while run:
+
+    while True:
+        if not a:
+            pygame.mixer.music.play()
+        a = True
+        break
+
 
     if player_2_character != 0 and player_1_character != 0:
         character_selection = False
@@ -194,7 +203,7 @@ while run:
 
 
     if character_selection is True:
-        screen.blit(bg , (0,0))
+        screen.blit(character_selection_bg , (0,0))
         screen.blit(display_start_message, (2, 0))
         screen.blit(display_message, (2, 15))
         screen.blit(display_rule, (2,30))
@@ -506,3 +515,4 @@ while run:
     pygame.display.update()
 
 pygame.quit()
+
