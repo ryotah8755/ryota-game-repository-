@@ -11,7 +11,7 @@ class Mewtwo:
             self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
             self.delta = .1
             self.name = "Pikachu"
-            self.hp = 90
+            self.hp = 110
             self.moves = {
                 "Psycho Cut": {"damage": 10, "accuracy": 100},
                 "Confusion": {"damage": 20, "accuracy": 85},

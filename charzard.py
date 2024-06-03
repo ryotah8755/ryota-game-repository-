@@ -12,10 +12,10 @@ class Charzard:
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = .1
         self.name = "Pikachu"
-        self.hp = 100
+        self.hp = 120
         self.moves = {
-            "Dragon Claw": {"damage": 15, "accuracy": 100},
-            "Slash": {"damage": 20, "accuracy": 65},
+            "Dragon Claw": {"damage": 10, "accuracy": 100},
+            "Slash": {"damage": 20, "accuracy": 70},
             "Inferno": {"damage": 30, "accuracy": 50},
             "Overheat": {"damage": 40, "accuracy": 35}
         }

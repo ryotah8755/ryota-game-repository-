@@ -10,9 +10,9 @@ class Gengar:
         self.rect = pygame.Rect(self.x, self.y, self.image_size[0], self.image_size[1])
         self.delta = .1
         self.name = "Gengar"
-        self.hp = 75
+        self.hp = 90
         self.moves = {
-            "Shadow Ball": {"damage": 25, "accuracy": 80},
+            "Shadow Ball": {"damage": 30, "accuracy": 75},
             "Night Shade": {"damage": 15, "accuracy": 90},
             "Dream Eater": {"damage": 30, "accuracy": 70},
             "Dark Pulse": {"damage": 20, "accuracy": 85}

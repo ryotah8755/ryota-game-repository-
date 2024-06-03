@@ -29,6 +29,10 @@ pregame_prompt = "PRESS SPACE TO GET READY FOR ATTACK PHASE!"
 help_message = "Press ESC to see what each character's attacks are!"
 player_1_message = "Player 1, it is your turn! Press 1,2,3,4 to attack! Press ESC to see the description of each attack."
 player_2_message = "Player 2, it is your turn! Press 7,8,9,0 to attack! Press ESC to see the description of each attack."
+miss_message = "THE ATTACK MISSED, IT DEALT 0 DAMAGE!"
+
+player_1_winning_message = "PLAYER 1 HAS WON!"
+player_2_winning_message = "PLAYER 2 HAS WON!"
 
 r = 50
 g = 0
@@ -48,9 +52,14 @@ display_attackmessage_2 = my_font.render(player_2_message, True, (0, 0, 0))
 display_player_1_health = my_font.render("HP: " + str(player_1_health), True, (0, 0, 0))
 display_player_2_health = my_font.render("HP: " + str(player_2_health), True, (0, 0, 0))
 show_pregame_prompt = my_font.render(str(pregame_prompt), True, (0, 0, 0))
+display_1_win = my_font.render(player_1_winning_message, True, (0,0,0))
+display_2_win = my_font.render(player_2_winning_message, True, (0,0,0))
+display_miss = my_font.render(miss_message, True, (0,0,0))
+
 
 # Initialize Pokemon objects
 p = Pikachu(800, 60)
+p.image = pygame.transform.flip(p.image, True , False)
 c = Charzard(750, 560)
 ge = Gengar(100, 450)
 m = Mewtwo(100, 60)
@@ -58,7 +67,7 @@ p2 = Pikachu(800, 60)
 c2 = Charzard(750, 560)
 ge2 = Gengar(100, 450)
 m2 = Mewtwo(100, 60)
-
+e = False
 bg = pygame.image.load("d4o49yb-f6ce0e46-18c7-4b95-8604-dfc301eb506b.png")
 
 # Character selection flags and variables
@@ -67,6 +76,8 @@ player_2_character = None
 player_1_pokemon = None
 player_2_pokemon = None
 
+miss = False
+
 character_selection = True
 battle_ready_mode = False
 
@@ -74,18 +85,21 @@ player_1_turn = False
 player_2_turn = False
 game_phase = False
 
+flip = False
+
 player_1_win = False
 player_2_win = False
 
 damage = 0
 
 run = True
+
 while run:
 
     while True:
-        if not b:
+        if not e:
             pygame.mixer.music.play()
-        b = True
+        e = True
         break
 
     for event in pygame.event.get():
@@ -98,37 +112,39 @@ while run:
                     player_1_character = 1
                     player_1_pokemon = Pikachu(100, 100)
                     player_1_health = p.hp
-                elif event.key == pygame.K_2:
+
+                if event.key == pygame.K_2:
                     player_1_character = 2
                     player_1_pokemon = Charzard(100, 100)
                     player_1_health = c.hp
-                elif event.key == pygame.K_3:
+                if event.key == pygame.K_3:
                     player_1_character = 3
                     player_1_pokemon = Gengar(100, 100)
                     player_1_health = ge.hp
-                elif event.key == pygame.K_4:
+                if event.key == pygame.K_4:
                     player_1_character = 4
                     player_1_pokemon = Mewtwo(100, 100)
                     player_1_health = m.hp
-                elif event.key == pygame.K_7:
+                if event.key == pygame.K_7:
                     player_2_character = 1
                     player_2_pokemon = Pikachu(800, 100)
                     player_2_health = p2.hp
-                elif event.key == pygame.K_8:
+                if event.key == pygame.K_8:
                     player_2_character = 2
                     player_2_health = c2.hp
                     player_2_pokemon = Charzard(800, 100)
-                elif event.key == pygame.K_9:
+                if event.key == pygame.K_9:
                     player_2_character = 3
                     player_2_pokemon = Gengar(800, 100)
                     player_2_health = ge2.hp
-                elif event.key == pygame.K_0:
+                if event.key == pygame.K_0:
                     player_2_character = 4
                     player_2_pokemon = Mewtwo(800, 100)
                     player_2_health = m2.hp
-                elif event.key == pygame.K_SPACE and player_1_character and player_2_character:
+                if event.key == pygame.K_SPACE and player_1_character and player_2_character:
                     character_selection = False
                     battle_ready_mode = True
+
 
         if battle_ready_mode:
             if event.type == pygame.KEYUP:
@@ -139,6 +155,7 @@ while run:
 
         if game_phase:
             if player_1_turn:
+                miss = False
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_1:
                         damage = player_1_pokemon.attack(
@@ -167,12 +184,17 @@ while run:
                             "Overheat") if player_1_character == 2 else player_1_pokemon.attack(
                             "Dark Pulse") if player_1_character == 3 else player_1_pokemon.attack("Psystrike")
                         player_1_turn = False
+                        miss = False
                         player_2_turn = True
 
                     player_2_health -= damage
-                    display_player_2_health = my_font.render("HP: " + str(player_2_health), True, (0, 0, 0))
+                    display_player_2_health = my_font.render("PLAYER 2 HP: " + str(player_2_health), True, (0, 0, 0))
+                    display_player_1_health = my_font.render("PLAYER 1 HP: " + str(player_1_health), True, (0, 0, 0))
+                    if damage == 0 and player_1_turn is False:
+                        miss = True
 
             elif player_2_turn:
+                miss = False
                 if event.type == pygame.KEYUP:
                     if event.key == pygame.K_7:
                         damage = player_2_pokemon.attack(
@@ -200,11 +222,17 @@ while run:
                             "Electro Ball") if player_2_character == 1 else player_2_pokemon.attack(
                             "Overheat") if player_2_character == 2 else player_2_pokemon.attack(
                             "Dark Pulse") if player_2_character == 3 else player_2_pokemon.attack("Psystrike")
+
                         player_2_turn = False
+                        miss = False
                         player_1_turn = True
 
                     player_1_health -= damage
-                    display_player_1_health = my_font.render("HP: " + str(player_1_health), True, (0, 0, 0))
+                    display_player_1_health = my_font.render("PLAYER 1 HP: " + str(player_1_health), True, (0, 0, 0))
+                    if damage == 0 and player_2_turn is False:
+                        miss = True
+
+
 
             if player_1_health <= 0 or player_2_health <= 0:
                 game_phase = False
@@ -220,6 +248,8 @@ while run:
 
     screen.fill((r, g, b))
     screen.blit(bg, (0, 0))
+    if miss:
+        screen.blit(display_miss, (640,200))
 
     if character_selection:
         screen.blit(character_selection_bg, (0, 0))
@@ -231,21 +261,36 @@ while run:
 
     if player_1_pokemon:
         screen.blit(player_1_pokemon.image, (100, 300))
+
+        if flip is False:
+            player_1_pokemon.image = pygame.transform.flip(player_1_pokemon.image, True, False)
+            flip = True
     if player_2_pokemon:
         screen.blit(player_2_pokemon.image, (800, 300))
 
     if battle_ready_mode:
-        screen.blit(ready_display, (640, 480))
+        screen.blit(ready_display, (640, 200))
 
     if game_phase:
         if player_1_turn:
-            screen.blit(display_attackmessage_1, (100,450))
+            screen.blit(display_attackmessage_1, (100,200))
         elif player_2_turn:
-            screen.blit(display_attackmessage_2, (100, 450))
+            screen.blit(display_attackmessage_2, (100, 200))
 
-        screen.blit(display_player_1_health, (5, 800))
-        screen.blit(display_player_2_health, (300, 300))
+        screen.blit(display_player_1_health, (300, 300))
+        screen.blit(display_player_2_health, (800, 300))
+
+
+    if player_1_win is True:
+        screen.blit(display_1_win, (640,200))
+    if player_2_win is True:
+        screen.blit(display_2_win, (640,200))
+
+
     pygame.display.update()
+
+
+
 
 pygame.quit()
 
