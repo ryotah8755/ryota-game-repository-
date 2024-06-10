@@ -59,7 +59,7 @@ display_miss = my_font.render(miss_message, True, (0,0,0))
 
 # Initialize Pokemon objects
 p = Pikachu(800, 60)
-p.image = pygame.transform.flip(p.image, True , False)
+# p.image = pygame.transform.flip(p.image, True , False)
 c = Charzard(750, 560)
 ge = Gengar(100, 450)
 m = Mewtwo(100, 60)
@@ -266,7 +266,7 @@ while run:
             player_1_pokemon.image = pygame.transform.flip(player_1_pokemon.image, True, False)
             flip = True
     if player_2_pokemon:
-        screen.blit(player_2_pokemon.image, (800, 300))
+        screen.blit(player_2_pokemon.image, (700, 260))
 
     if battle_ready_mode:
         screen.blit(ready_display, (640, 200))
